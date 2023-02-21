@@ -23,7 +23,7 @@ import { defineProps, defineEmits, PropType, toRefs, inject, computed, unref } f
 import { formContextKey } from 'element-plus'
 
 interface IUseFormInputProps {
-  label: string
+  label?: string
   prop: string
   mode?: 'form' | 'show'
   inputProps: any

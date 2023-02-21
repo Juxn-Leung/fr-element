@@ -3,6 +3,7 @@
     <el-form-item
       :ref="el => formItemRef = el"
       :label="itemProps?.label"
+      :label-width="!itemProps?.label && '0px'"
       :prop="itemProps?.prop"
       v-bind="formatedFormProps"
     >
@@ -41,12 +42,7 @@ const props = defineProps({
 
 const { props: itemProps } = toRefs(props)
 
-const colProps = computed(() => {
-    if (itemProps?.value) return itemProps.value?.colProps
-    return {
-        span: 12
-    }
-})
+const colProps = computed(() => itemProps?.value?.colProps || { span: 12 })
 
 const formatedFormProps = ref({
 }) as Ref<any>

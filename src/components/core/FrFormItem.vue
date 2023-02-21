@@ -40,14 +40,14 @@ const useMode = computed(() => {
 
 <style lang="scss" scoped>
 // @import '../../styles/var';
-// .fr-form-item{
-//   padding-left: 4px;
-//   .fr-form-content{
-//     font-size: $--font-size-base;
-//     color: $--font-color-black;
-//     margin-left: 10px;
-//     display: flex;
-//     align-items: center;
-//   }
-// }
+.fr-form-item{
+  padding-left: 4px;
+  .fr-form-content{
+    // font-size: $--font-size-base;
+    // color: $--font-color-black;
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+  }
+}
 </style>

@@ -25,6 +25,11 @@
             v-model:value="dataInfo.name"
             :props="{ label: '标签名称：', prop: 'name', mode: isChange }"
           />
+
+          <form-input
+            v-model:value="dataInfo.name"
+            :props="{ prop: 'name', mode: isChange }"
+          />
         </el-row>
       </el-form>
       <el-collapse>
@@ -43,25 +48,18 @@
       </el-collapse>
     </div>
 
-    <p class="text-2xl mt-12 mb-8">
-      属性
-    </p>
-    <el-table
-      :border="false"
-      :align="`left`"
-      :data="list"
-    >
-      <el-table-column
-        v-for="(columnProps, index) in columnPropsList"
-        v-bind="columnProps"
-        :key="index"
-      />
-    </el-table>
+    <Table
+      :attribute-list="attributeList"
+      :event-list="eventList"
+      :method-list="methodList"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
 import { ref, Ref } from 'vue'
+import Table from './Table.vue'
+import { IAttributeListProps, IEventListProps, IMethodListProps } from './useExampleProps'
 
 const isChange = ref('form')
 
@@ -89,43 +87,38 @@ const preCode = ref(`
     })
   </script` + `>`)
 
-const list = ref([
+const attributeList = ref([
   {
     name: 'props',
     description: '',
     type: '',
     value: '',
     defaultValue: ''
+  },
+  {
+    name: 'value',
+    description: '',
+    type: '',
+    value: '',
+    defaultValue: ''
   }
-])
+]) as Ref<IAttributeListProps[]>
 
-const columnPropsList = ref([
+const eventList = ref([
   {
-    prop: 'name',
-    label: '属性名',
-    minWidth:"120"
-  },
+    name: 'props',
+    description: '',
+    callback: '',
+  }
+]) as Ref<IEventListProps[]>
+
+const methodList = ref([
   {
-    prop: 'description',
-    label: '说明',
-    minWidth:"300"
-  },
-  {
-    prop: 'type',
-    label: '类型',
-    minWidth:"100"
-  },
-  {
-    prop: 'value',
-    label: '可选值',
-    minWidth:"100"
-  },
-  {
-    prop: 'defaultValue',
-    label: '默认值',
-    minWidth:"100"
-  },
-]) as Ref<any[]>
+    name: 'props',
+    description: '',
+    parameter: '',
+  }
+]) as Ref<IMethodListProps[]>
 
 </script>
 
