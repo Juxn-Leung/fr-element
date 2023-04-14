@@ -1,0 +1,43 @@
+@mixin scroll-bar {
+  $--scrollbar-thumb-background: #BBBBBB;
+  $--scrollbar-track-background: transparent;
+  &::-webkit-scrollbar {
+    z-index: 11;
+    width: 6px;
+    &:horizontal {
+      height: 6px;
+    }
+    &-thumb {
+      border-radius: 5px;
+      width: 6px;
+      background: $--scrollbar-thumb-background;
+    }
+    &-corner {
+      background: $--scrollbar-track-background;
+    }
+    &-track {
+      background: $--scrollbar-track-background;
+      &-piece {
+        background: $--scrollbar-track-background;
+        width: 6px;
+      }
+    }
+  }
+}
+
+@mixin font-over-hidden {
+  overflow: hidden; 
+  text-overflow: ellipsis; 
+  white-space: nowrap;
+}
+
+@mixin full-cell {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

@@ -42,6 +42,7 @@ const useMode = computed(() => {
 // @import '../../styles/var';
 .fr-form-item{
   padding-left: 4px;
+  flex: 1;
   .fr-form-content{
     // font-size: $--font-size-base;
     // color: $--font-color-black;

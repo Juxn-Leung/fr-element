@@ -3,7 +3,6 @@
     <el-menu
       default-active="1"
       class="el-menu-vertical"
-      active-text-color="#42b983"
     >
       <template
         v-for="(item, index) in menuList"

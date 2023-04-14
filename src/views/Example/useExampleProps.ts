@@ -1,10 +1,13 @@
 export interface IAttributeListProps {
-  id: string
+  id: number
   name: string
   description: string
   type: string
   value: string
   defaultValue: string
+  required: boolean
+  hasChildren?: boolean
+  children?: IAttributeListProps[]
 }
 
 export interface IEventListProps {
@@ -14,7 +17,7 @@ export interface IEventListProps {
   callback: string
 }
 
-export interface IMethodListProps {
+export interface ISlotListProps {
   id: string
   name: string
   description: string

@@ -3,61 +3,47 @@
     <p class="text-2xl mt-24 mb-16">
       #属性
     </p>               
-    <el-table
-      :border="false"
-      :align="`left`"
-      :data="attributeList"
-    >
-      <el-table-column
-        v-for="(attributeColumnProps, index) in attributeColumnPropsList"
-        v-bind="attributeColumnProps"
-        :key="index"
-      />
-    </el-table>
+    <TableColumn
+      :data-list="attributeList"
+      :data-table-column="attributeColumnPropsList"
+    />
   </div>
   <div v-if="eventList && eventList.length">
     <p class="text-2xl mt-24 mb-16">
       #事件
     </p>               
-    <el-table
-      :border="false"
-      :align="`left`"
-      :data="eventList"
-    >
-      <el-table-column
-        v-for="(eventColumnProps, index) in eventColumnPropsList"
-        v-bind="eventColumnProps"
-        :key="index"
-      />
-    </el-table>
+    <TableColumn
+      :data-list="eventList"
+      :data-table-column="eventColumnPropsList"
+    />
   </div>
-  <div v-if="methodList && methodList.length">
+  <div v-if="slotList && slotList.length">
     <p class="text-2xl mt-24 mb-16">
       #方法
     </p>               
-    <el-table
-      :border="false"
-      :align="`left`"
-      :data="methodList"
-    >
-      <el-table-column
-        v-for="(methodColumnProps, index) in methodColumnPropsList"
-        v-bind="methodColumnProps"
-        :key="index"
-      />
-    </el-table>
+    <TableColumn
+      :data-list="slotList"
+      :data-table-column="methodColumnPropsList"
+    />
   </div>
 </template>
 
 <script lang="ts" setup>
-import { defineProps, ref, Ref, PropType, toRefs } from 'vue'
-import { IAttributeListProps, IEventListProps, IMethodListProps } from './useExampleProps'
+import { defineProps, ref, Ref, PropType, toRefs, h } from 'vue'
+import { IAttributeListProps, IEventListProps, ISlotListProps } from './useExampleProps'
+import TableColumn from './TableColumn.vue'
+
+interface IchildrenProps {
+  prop: string
+  label: string
+}
 
 interface IColumnProps {
   prop: string
   label: string
   minWidth?:string
   width?:string
+  children?:IchildrenProps[]
 }
 
 const props = defineProps({
@@ -67,12 +53,12 @@ const props = defineProps({
   eventList: {
     type: Array as PropType<IEventListProps[]>
   },
-  methodList: {
-    type: Array as PropType<IMethodListProps[]>
+  slotList: {
+    type: Array as PropType<ISlotListProps[]>
   },
 })
 
-const { attributeList, eventList, methodList } = toRefs(props)
+const { attributeList, eventList, slotList } = toRefs(props)
 
 const attributeColumnPropsList = ref([
   {
@@ -88,7 +74,7 @@ const attributeColumnPropsList = ref([
   {
     prop: 'type',
     label: '类型',
-    minWidth:"100"
+    minWidth:"120"
   },
   {
     prop: 'value',
@@ -99,6 +85,14 @@ const attributeColumnPropsList = ref([
     prop: 'defaultValue',
     label: '默认值',
     minWidth:"100"
+  },
+  {
+    prop: 'required',
+    label: '必填',
+    minWidth:"100",
+    formatter: (row: IAttributeListProps) => {
+      return h('span', {}, row.required ? '是' : '否')
+    }
   },
 ]) as Ref<IColumnProps[]>
 

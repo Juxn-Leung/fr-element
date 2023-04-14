@@ -23,7 +23,7 @@
         <el-row :gutter="56">
           <form-input
             v-model:value="dataInfo.name"
-            :props="{ label: '标签名称：', prop: 'name', mode: isChange }"
+            :props="{ label: '标签名称', prop: 'name', mode: isChange }"
           />
 
           <form-input
@@ -51,7 +51,7 @@
     <Table
       :attribute-list="attributeList"
       :event-list="eventList"
-      :method-list="methodList"
+      :slot-list="slotList"
     />
   </div>
 </template>
@@ -59,12 +59,13 @@
 <script lang="ts" setup>
 import { ref, Ref } from 'vue'
 import Table from './Table.vue'
-import { IAttributeListProps, IEventListProps, IMethodListProps } from './useExampleProps'
+import { IAttributeListProps, IEventListProps, ISlotListProps } from './useExampleProps'
 
 const isChange = ref('form')
 
 const dataInfo = ref({
-    name: ''
+    name: '',
+    name2: ''
 })
 
 const preCode = ref(`
@@ -78,6 +79,10 @@ const preCode = ref(`
           v-model:value="dataInfo.name"
           :props="{ label: '标签名称：', prop: 'name', mode: isChange }"
         />
+        <form-input
+            v-model:value="dataInfo.name2"
+            :props="{ prop: 'name2', mode: isChange }"
+          />
       </el-row>
     </el-form>
   </template>
@@ -89,36 +94,46 @@ const preCode = ref(`
 
 const attributeList = ref([
   {
+    id: 1,
     name: 'props',
     description: '',
     type: '',
     value: '',
-    defaultValue: ''
+    defaultValue: '',
+    required: true,
+    hasChildren: true,
+    children: [
+      {
+        id: 11,
+        name: '22222',
+        description: '',
+        type: '',
+        value: '',
+        defaultValue: '',
+        required: true,
+      }
+    ]
   },
   {
+    id: 2,
     name: 'value',
-    description: '',
-    type: '',
+    description: '相当于 :model-value',
+    type: 'String | Number',
     value: '',
-    defaultValue: ''
+    defaultValue: '-',
+    required: false
   }
 ]) as Ref<IAttributeListProps[]>
 
 const eventList = ref([
   {
-    name: 'props',
-    description: '',
-    callback: '',
+    name: 'update:value',
+    description: '输入后立即执行，返回输入的内容',
+    callback: 'value',
   }
 ]) as Ref<IEventListProps[]>
 
-const methodList = ref([
-  {
-    name: 'props',
-    description: '',
-    parameter: '',
-  }
-]) as Ref<IMethodListProps[]>
+const slotList = ref([]) as Ref<ISlotListProps[]>
 
 </script>
 
